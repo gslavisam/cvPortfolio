@@ -1,0 +1,6 @@
+{
+  "name": "Slavisa Portfolio",
+  "description": "Interaktivni portfolio za Slavišu (gslavisam) dizajniran kao Agentic Workspace.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
