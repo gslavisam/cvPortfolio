@@ -190,20 +190,30 @@ export default function App() {
             <div className="space-y-8">
               
               {/* Introduction Banner */}
-              <div className="relative p-6 rounded-2xl bg-gradient-to-r from-indigo-950/20 to-black border border-indigo-500/20 overflow-hidden shadow-lg">
-                <div className="absolute -right-10 -top-10 w-36 h-36 bg-indigo-500/10 rounded-full filter blur-2xl"></div>
-                <div className="w-full space-y-3">
-                  <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-bold font-mono uppercase tracking-wider">
-                    <Cpu className="w-3.5 h-3.5" />
-                    <span>Agentic Workspace Session</span>
+              <div className="relative p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-indigo-950/30 via-black to-black border border-indigo-500/25 overflow-hidden shadow-xl">
+                <div className="absolute -right-10 -top-10 w-48 h-48 bg-indigo-500/10 rounded-full filter blur-3xl"></div>
+                <div className="absolute right-1/3 -bottom-10 w-36 h-36 bg-cyan-500/10 rounded-full filter blur-2xl"></div>
+                <div className="w-full space-y-4 relative">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-bold font-mono uppercase tracking-wider">
+                      <Cpu className="w-3.5 h-3.5" />
+                      <span>Value Proposition & Architectural Focus</span>
+                    </div>
+                    <span className="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-2 py-0.5 rounded-full">
+                      Senior IT PM / Business Analyst
+                    </span>
                   </div>
-                  <h1 className="text-xl sm:text-3xl font-light tracking-tight text-white font-display">
-                    {language === 'sr' ? 'Skeniranje i kompajliranje Slavišinih digitalnih resursa' : 'Scanning & compiling Slavisa\'s digital assets'}
-                  </h1>
-                  <p className="text-sm text-gray-400 font-sans leading-relaxed">
+
+                  <h1 className="text-xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white font-sans leading-tight">
                     {language === 'sr' 
-                      ? 'Ova stranica funkcioniše kao Agentic Workspace sesija. Naš AI agent je skenirao profesionalnu arhivu, mapirao e-mail gslavisam@gmail.com, prepoznao rad na arhitekturi velikih sistema, integracijama u Magni i S-TIM ICT-u, te kompajlirao interaktivni portfolio. Izaberi korake u levom delu ili pokreni agenta!'
-                      : 'This page acts as a live interactive Agentic Workspace session. Our AI Agent scanned professional archives, matched gslavisam@gmail.com, detected your enterprise architecture work, integrations at Magna and S-TIM ICT, and generated this playground. Select timeline steps below to view terminal logs.'}
+                      ? 'Most između enterprise poslovne logike i transparentnih, proverljivih AI sistema'
+                      : 'Bridge between Enterprise Business Logic & Explainable AI Systems'}
+                  </h1>
+
+                  <p className="text-sm sm:text-base text-gray-300 font-sans leading-relaxed">
+                    {language === 'sr'
+                      ? 'Senior IT PM / Poslovni Analitičar specijalizovan za Arhitekturu podataka, Master Data Management (MDM) i Kontrolisanu, pouzdanu AI Integraciju (Controlled AI Integration).'
+                      : 'Senior IT PM / Business Analyst specializing in Data Architecture, MDM, and Controlled AI Integration.'}
                   </p>
                 </div>
               </div>

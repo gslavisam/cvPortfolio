@@ -9,25 +9,35 @@ export const systemProfile: SystemProfile = {
   name: 'Slaviša Milinković',
   email: 'smilinkovic@outlook.com',
   location: 'Beograd, Srbija',
-  title: 'Senior Business Analyst, IT Specialist, Data Architect & Enterprise Architect',
-  bio: 'Preko 25 godina iskustva u analizi, integraciji i modeliranju Enterprise i Data sistema (ERP, MES, DWH, ML).',
-  fullBio: 'Senior poslovni analitičar i IT specijalista sa više od 25 godina iskustva u konfiguraciji, implementaciji i optimizaciji Enterprise aplikativnih rešenja (ERP, MES, DWH). Dokazani ekspert za upravljanje celokupnim životnim ciklusom softvera (SAP, Workday, OneStream, Odoo), od prikupljanja zahteva i API integracija do mentorisanja kros-funkcionalnih timova i vođenja projekata u automobilskoj industriji, bankarstvu i državnoj upravi.',
+  title: 'Bridge between Enterprise Business Logic & Explainable AI Systems — Senior IT PM / Business Analyst specializing in Data Architecture, MDM, and Controlled AI Integration',
+  bio: 'Preko 25 godina iskustva u analizi, integraciji i modeliranju Enterprise i Data sistema (ERP, MES, DWH, MDM, Explainable AI).',
+  fullBio: 'Senior poslovni analitičar, IT PM i arhitekta sa više od 25 godina iskustva u konfiguraciji, implementaciji i optimizaciji Enterprise aplikativnih rešenja (ERP, MES, DWH, MDM). Dokazani ekspert za premošćavanje jaza između kompleksne poslovne logike i pouzdanih, kontrolisanih AI sistema, upravljanje celokupnim životnim ciklusom softvera (SAP, Workday, OneStream, Odoo), te vođenje projekata u automobilskoj industriji, bankarstvu i državnoj upravi.',
   skills: [
     {
-      category: 'Enterprise Systems & ERP',
-      list: ['SAP', 'Workday', 'OneStream', 'Odoo ERP', 'WMS', 'Legacy Systems Decommissioning']
+      category: 'Strategic & Delivery Leadership',
+      list: [
+        'IT Project Management (End-to-End)',
+        'Business Analysis & Requirements',
+        'System Integration Architecture',
+        'MDM & Data Governance',
+        'COBIT & ITIL Frameworks',
+        'Agile / Scrum / Kanban',
+        'Stakeholder & Vendor Management',
+        'UML Modeling & DDD'
+      ]
     },
     {
-      category: 'Data Engineering & Databases',
-      list: ['Data Architecture', 'DWH Architecture', 'Databricks (PySpark)', 'Data Vault 2.0', 'Star Schema & Snowflake Schema', 'Python', 'Advanced SQL', 'Oracle', 'PostgreSQL', 'MS SQL Server', 'Azure Synapse', 'ETL Pipelines', 'Talend', 'SSIS / Kettle']
-    },
-    {
-      category: 'AI, Machine Learning & LLMs',
-      list: ['Time Series Forecasting', 'AutoGluon / TimeGPT', 'Model Fine-Tuning (Gemma, LLaMA)', 'Autonomous AI Agents', 'CrewAI / LangChain', 'ML Algorithms (KNN, Random Forest, Neural Networks)']
-    },
-    {
-      category: 'Project & Architecture Governance',
-      list: ['Enterprise Architecture', 'Jira & Confluence', 'UML Modeling', 'Domain Driven Design (DDD)', 'COBIT', 'ITIL', 'ISO 27000', 'Agile / Scrum / Kanban']
+      category: 'Technical & AI Architecture (Hands-on)',
+      list: [
+        'Multi-Signal Candidate Scoring',
+        'Ambiguity Band AI Filtering',
+        'SLM Fine-Tuning (LoRA / PEFT)',
+        'Databricks & PySpark (Big Data)',
+        'Data Vault 2.0 & DWH Schemas',
+        'Python & Pandas Data Profiling',
+        'Advanced SQL (Oracle, Postgres, Synapse)',
+        'Agentic Workflows (MCP, LangChain)'
+      ]
     }
   ]
 };
