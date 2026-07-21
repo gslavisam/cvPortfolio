@@ -10,7 +10,11 @@ import {
   User, 
   Mail, 
   CheckCircle,
-  Clock
+  Clock,
+  FileText,
+  Github,
+  Linkedin,
+  ExternalLink
 } from 'lucide-react';
 import { ContactMessage } from '../../types';
 
@@ -159,6 +163,79 @@ export default function FeedbackSection({ language }: FeedbackSectionProps) {
             <span>{language === 'sr' ? 'Pošalji' : 'Send Message'}</span>
           </button>
         </form>
+
+        {/* Divider and Direct Links */}
+        <div className="border-t border-white/5 pt-6 mt-6 space-y-4">
+          <div className="text-center">
+            <span className="text-[10px] font-mono font-bold tracking-widest text-indigo-400 uppercase">
+              {language === 'sr' ? 'Brzi linkovi' : 'Quick Links'}
+            </span>
+          </div>
+          
+          <div className="space-y-3">
+            {/* Download CV */}
+            <div 
+              id="link-download-cv"
+              className="flex items-center gap-3 p-3 rounded-xl bg-[#030303]/40 border border-white/5 opacity-60 text-xs font-medium text-gray-400 select-none"
+            >
+              <div className="p-2 rounded-lg bg-indigo-500/5 text-gray-500">
+                <FileText className="w-4 h-4" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-semibold text-gray-400 truncate">
+                  {language === 'sr' ? '📄 Preuzmi CV (PDF) (Uskoro)' : '📄 Download CV (PDF) (Coming Soon)'}
+                </p>
+                <p className="text-[10px] text-gray-500 truncate">
+                  {language === 'sr' ? 'Biografija će biti dostupna nakon što priložite fajl' : 'Resume will be available once the file is uploaded'}
+                </p>
+              </div>
+            </div>
+
+            {/* GitHub */}
+            <a 
+              href="https://github.com/gslavisam"
+              target="_blank"
+              rel="noopener noreferrer"
+              id="link-github-repos"
+              className="flex items-center gap-3 p-3 rounded-xl bg-[#030303] border border-white/5 hover:border-emerald-500/30 hover:bg-white/5 transition-all text-xs font-medium text-gray-300 hover:text-white group cursor-pointer"
+            >
+              <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
+                <Github className="w-4 h-4" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-semibold text-white truncate">
+                  {language === 'sr' ? '💻 Pogledaj GitHub Repozitorijume (Semantra, RTH Analyzer)' : '💻 View GitHub Repositories (Semantra, RTH Analyzer)'}
+                </p>
+                <p className="text-[10px] text-gray-400 truncate">
+                  {language === 'sr' ? 'Istražite open-source projekte i kod' : 'Explore open-source codebases and public projects'}
+                </p>
+              </div>
+              <ExternalLink className="w-3.5 h-3.5 text-gray-500 group-hover:text-emerald-400 transition-colors mr-1" />
+            </a>
+
+            {/* LinkedIn */}
+            <a 
+              href="https://www.linkedin.com/in/smilinkovic/"
+              target="_blank"
+              rel="noopener noreferrer"
+              id="link-linkedin-connect"
+              className="flex items-center gap-3 p-3 rounded-xl bg-[#030303] border border-white/5 hover:border-cyan-500/30 hover:bg-white/5 transition-all text-xs font-medium text-gray-300 hover:text-white group cursor-pointer"
+            >
+              <div className="p-2 rounded-lg bg-cyan-500/10 text-cyan-400 group-hover:bg-cyan-500/20 transition-colors">
+                <Linkedin className="w-4 h-4" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-semibold text-white truncate">
+                  {language === 'sr' ? '💼 Povežimo se na LinkedIn-u' : '💼 Connect on LinkedIn'}
+                </p>
+                <p className="text-[10px] text-gray-400 truncate">
+                  {language === 'sr' ? 'Profesionalno umrežavanje i saradnja' : 'Professional networking and business inquiries'}
+                </p>
+              </div>
+              <ExternalLink className="w-3.5 h-3.5 text-gray-500 group-hover:text-cyan-400 transition-colors mr-1" />
+            </a>
+          </div>
+        </div>
 
       </div>
     </div>

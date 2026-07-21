@@ -192,7 +192,7 @@ export default function App() {
               {/* Introduction Banner */}
               <div className="relative p-6 rounded-2xl bg-gradient-to-r from-indigo-950/20 to-black border border-indigo-500/20 overflow-hidden shadow-lg">
                 <div className="absolute -right-10 -top-10 w-36 h-36 bg-indigo-500/10 rounded-full filter blur-2xl"></div>
-                <div className="max-w-3xl space-y-3">
+                <div className="w-full space-y-3">
                   <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-bold font-mono uppercase tracking-wider">
                     <Cpu className="w-3.5 h-3.5" />
                     <span>Agentic Workspace Session</span>
