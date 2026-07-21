@@ -139,12 +139,12 @@ export default function MainBio({ language, onNavigateTab }: MainBioProps) {
             </p>
             <p className="text-xs text-gray-300 font-sans mt-3 leading-relaxed">
               {language === 'sr' 
-                ? 'Projektovanje sistema za SMATSA-u, procesiranje 20M+ zapisa kroz Python Pandas, implementacija Odoo ERP-a i WMS-a.'
-                : 'Designing Planning systems for SMATSA, processing 20M+ records with Pandas, and deploying Odoo ERP/WMS platforms.'}
+                ? 'Projektovanje EA standarda i sistema za planiranje za SMATSA-u, DWH modeliranje, te implementacija Odoo ERP-a i WMS-a.'
+                : 'Designing EA standards and Planning systems for SMATSA, DWH modeling, and deploying Odoo ERP/WMS platforms.'}
             </p>
           </div>
           <div className="mt-6 pt-4 border-t border-white/5 flex flex-wrap gap-1.5">
-            {['Odoo', 'Pandas', 'Oracle', 'Talend', 'COBIT'].map(tech => (
+            {['Odoo', 'Databricks', 'Oracle', 'Talend', 'COBIT'].map(tech => (
               <span key={tech} className="text-[10px] px-2 py-0.5 rounded bg-black/30 border border-white/5 text-gray-400 font-mono">
                 {tech}
               </span>

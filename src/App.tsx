@@ -12,7 +12,13 @@ import {
   Laptop,
   CheckCircle2,
   ExternalLink,
-  ChevronRight
+  ChevronRight,
+  User,
+  Database,
+  Settings,
+  Search,
+  Mail,
+  ArrowRight
 } from 'lucide-react';
 import Sidebar from './components/PerplexityComputer/Sidebar';
 import Timeline from './components/PerplexityComputer/Timeline';
@@ -101,6 +107,8 @@ export default function App() {
         return `${root} > Enterprise DWH & Odoo`;
       case 'semantra':
         return `${root} > Semantra Semantic Search`;
+      case 'contact':
+        return `${root} > ${language === 'sr' ? 'Kontakt / Poruka' : 'Contact / Message'}`;
       default:
         return root;
     }
@@ -194,8 +202,8 @@ export default function App() {
                   </h1>
                   <p className="text-sm text-gray-400 font-sans leading-relaxed">
                     {language === 'sr' 
-                      ? 'Ova stranica funkcioniše kao Agentic Workspace sesija. Naš AI agent je skenirao datoteke, mapirao e-mail gslavisam@gmail.com, prepoznao rad na pomorskoj inteligenciji (OrbitMI) i radionicama za decu (DigiKlinci), te kompajlirao interaktivni portfolio. Izaberi korake u levom delu ili istraži radionice!'
-                      : 'This page acts as a live interactive Agentic Workspace session. Our AI Agent scanned server environments, matched gslavisam@gmail.com, detected your maritime enterprise (OrbitMI) and children educational project (DigiKlinci), and generated this playground. Select timeline steps below to view terminal logs.'}
+                      ? 'Ova stranica funkcioniše kao Agentic Workspace sesija. Naš AI agent je skenirao profesionalnu arhivu, mapirao e-mail gslavisam@gmail.com, prepoznao rad na arhitekturi velikih sistema, integracijama u Magni i S-TIM ICT-u, te kompajlirao interaktivni portfolio. Izaberi korake u levom delu ili pokreni agenta!'
+                      : 'This page acts as a live interactive Agentic Workspace session. Our AI Agent scanned professional archives, matched gslavisam@gmail.com, detected your enterprise architecture work, integrations at Magna and S-TIM ICT, and generated this playground. Select timeline steps below to view terminal logs.'}
                   </p>
                 </div>
               </div>
@@ -235,51 +243,158 @@ export default function App() {
                       {language === 'sr' ? 'AI agent je uspešno generisao i pokrenuo sledeće module.' : 'The AI agent successfully assembled and mounted the following interactive modules.'}
                     </p>
                   </div>
-
-                  {/* Visual Tab controller on compile view */}
-                  <div className="flex flex-wrap gap-2">
-                    <button
-                      onClick={() => setCurrentTab('bio')}
-                      id="btn-shortcut-bio"
-                      className="px-3.5 py-1.5 rounded-lg bg-white/5 border border-white/5 text-xs font-medium hover:text-white transition-all text-gray-400 flex items-center gap-1.5 cursor-pointer hover:bg-white/10"
-                    >
-                      <span>{language === 'sr' ? 'Biografija 👨‍💻' : 'Biography 👨‍💻'}</span>
-                      <ChevronRight className="w-3.5 h-3.5 text-gray-500" />
-                    </button>
-                    <button
-                      onClick={() => setCurrentTab('orbitmi')}
-                      id="btn-shortcut-orbitmi"
-                      className="px-3.5 py-1.5 rounded-lg bg-white/5 border border-white/5 text-xs font-medium hover:text-white transition-all text-gray-400 flex items-center gap-1.5 cursor-pointer hover:bg-white/10"
-                    >
-                      <span>{language === 'sr' ? 'Magna ML i ERP ⚙️' : 'Magna ML & ERP ⚙️'}</span>
-                      <ChevronRight className="w-3.5 h-3.5 text-gray-500" />
-                    </button>
-                    <button
-                      onClick={() => setCurrentTab('digiklinci')}
-                      id="btn-shortcut-digiklinci"
-                      className="px-3.5 py-1.5 rounded-lg bg-white/5 border border-white/5 text-xs font-medium hover:text-white transition-all text-gray-400 flex items-center gap-1.5 cursor-pointer hover:bg-white/10"
-                    >
-                      <span>{language === 'sr' ? 'Enterprise DWH & Odoo 📊' : 'Enterprise DWH & Odoo 📊'}</span>
-                      <ChevronRight className="w-3.5 h-3.5 text-gray-500" />
-                    </button>
-                    <button
-                      onClick={() => setCurrentTab('semantra')}
-                      id="btn-shortcut-semantra"
-                      className="px-3.5 py-1.5 rounded-lg bg-white/5 border border-white/5 text-xs font-medium hover:text-white transition-all text-gray-400 flex items-center gap-1.5 cursor-pointer hover:bg-white/10"
-                    >
-                      <span>{language === 'sr' ? 'Semantra Search 🔍' : 'Semantra Search 🔍'}</span>
-                      <ChevronRight className="w-3.5 h-3.5 text-gray-500" />
-                    </button>
-                  </div>
                 </div>
 
-                {/* Main Render bio previews inside computer page */}
-                <div className="p-6 rounded-3xl bg-[#111111]/70 border border-white/5 backdrop-blur-sm relative">
-                  <div className="absolute top-4 right-4 text-[9px] font-mono font-bold tracking-widest text-indigo-400 uppercase flex items-center gap-1 bg-indigo-500/10 border border-indigo-500/25 px-2 py-0.5 rounded-md">
-                    <CheckCircle2 className="w-3 h-3 text-indigo-400 animate-pulse" />
-                    Live Preview
+                {/* Main Render modules dashboard hub instead of repeating the whole biography */}
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    
+                    {/* Card 1: Biography */}
+                    <div 
+                      onClick={() => setCurrentTab('bio')}
+                      className="group relative p-5 rounded-2xl bg-[#0b0b0b]/60 border border-white/5 hover:border-indigo-500/30 transition-all duration-300 hover:shadow-[0_4px_20px_rgba(99,102,241,0.05)] cursor-pointer flex flex-col justify-between space-y-4"
+                    >
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <div className="p-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 group-hover:bg-indigo-500/20 transition-all">
+                            <User className="w-5 h-5" />
+                          </div>
+                          <span className="text-[9px] font-mono font-bold tracking-widest text-emerald-400 uppercase bg-emerald-500/10 border border-emerald-500/25 px-2 py-0.5 rounded-md">
+                            ACTIVE / READY
+                          </span>
+                        </div>
+                        <h3 className="text-sm font-bold text-white group-hover:text-indigo-400 transition-colors">
+                          {language === 'sr' ? 'Profesionalna Biografija' : 'Professional Biography'}
+                        </h3>
+                        <p className="text-xs text-gray-400 leading-relaxed font-sans">
+                          {language === 'sr' 
+                            ? 'Profil arhitekte preduzeća, tehnički stek, istorijat transformacija i obrazovanje.' 
+                            : 'Enterprise architect profile, core technical stack, transformation history, and education.'}
+                        </p>
+                      </div>
+                      <div className="flex items-center text-[11px] font-semibold text-indigo-400 group-hover:text-indigo-300 transition-colors pt-2">
+                        <span>{language === 'sr' ? 'Otvori profil' : 'Open profile'}</span>
+                        <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </div>
+
+                    {/* Card 2: Magna ML & ERP */}
+                    <div 
+                      onClick={() => setCurrentTab('orbitmi')}
+                      className="group relative p-5 rounded-2xl bg-[#0b0b0b]/60 border border-white/5 hover:border-cyan-500/30 transition-all duration-300 hover:shadow-[0_4px_20px_rgba(6,182,212,0.05)] cursor-pointer flex flex-col justify-between space-y-4"
+                    >
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <div className="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 group-hover:bg-cyan-500/20 transition-all">
+                            <Settings className="w-5 h-5" />
+                          </div>
+                          <span className="text-[9px] font-mono font-bold tracking-widest text-emerald-400 uppercase bg-emerald-500/10 border border-emerald-500/25 px-2 py-0.5 rounded-md">
+                            ACTIVE / READY
+                          </span>
+                        </div>
+                        <h3 className="text-sm font-bold text-white group-hover:text-cyan-400 transition-colors">
+                          {language === 'sr' ? 'Magna ML & ERP Simulator' : 'Magna ML & ERP Simulator'}
+                        </h3>
+                        <p className="text-xs text-gray-400 leading-relaxed font-sans">
+                          {language === 'sr' 
+                            ? 'Optimizacija proizvodnih procesa, predviđanje mehaničkog stresa presa i integracija sa Odoo sistemom.' 
+                            : 'Production line optimization, stress prediction models for stamping presses, and Odoo integrations.'}
+                        </p>
+                      </div>
+                      <div className="flex items-center text-[11px] font-semibold text-cyan-400 group-hover:text-cyan-300 transition-colors pt-2">
+                        <span>{language === 'sr' ? 'Otvori simulator' : 'Open simulator'}</span>
+                        <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </div>
+
+                    {/* Card 3: Enterprise DWH & Odoo */}
+                    <div 
+                      onClick={() => setCurrentTab('digiklinci')}
+                      className="group relative p-5 rounded-2xl bg-[#0b0b0b]/60 border border-white/5 hover:border-indigo-500/30 transition-all duration-300 hover:shadow-[0_4px_20px_rgba(99,102,241,0.05)] cursor-pointer flex flex-col justify-between space-y-4"
+                    >
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <div className="p-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 group-hover:bg-indigo-500/20 transition-all">
+                            <Database className="w-5 h-5" />
+                          </div>
+                          <span className="text-[9px] font-mono font-bold tracking-widest text-emerald-400 uppercase bg-emerald-500/10 border border-emerald-500/25 px-2 py-0.5 rounded-md">
+                            ACTIVE / READY
+                          </span>
+                        </div>
+                        <h3 className="text-sm font-bold text-white group-hover:text-indigo-400 transition-colors">
+                          {language === 'sr' ? 'Enterprise DWH & Odoo' : 'Enterprise DWH & Odoo'}
+                        </h3>
+                        <p className="text-xs text-gray-400 leading-relaxed font-sans">
+                          {language === 'sr' 
+                            ? 'Dizajn modernih analitičkih platformi, Star Schema modeliranje, WMS arhitektura i Odoo tokovi rada.' 
+                            : 'Modern analytical platform design, Star Schema modeling, WMS warehouse layout architecture, and Odoo workflows.'}
+                        </p>
+                      </div>
+                      <div className="flex items-center text-[11px] font-semibold text-indigo-400 group-hover:text-indigo-300 transition-colors pt-2">
+                        <span>{language === 'sr' ? 'Istraži arhitekturu' : 'Explore architecture'}</span>
+                        <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </div>
+
+                    {/* Card 4: Semantra Semantic Search */}
+                    <div 
+                      onClick={() => setCurrentTab('semantra')}
+                      className="group relative p-5 rounded-2xl bg-[#0b0b0b]/60 border border-white/5 hover:border-cyan-500/30 transition-all duration-300 hover:shadow-[0_4px_20px_rgba(6,182,212,0.05)] cursor-pointer flex flex-col justify-between space-y-4"
+                    >
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <div className="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 group-hover:bg-cyan-500/20 transition-all">
+                            <Search className="w-5 h-5" />
+                          </div>
+                          <span className="text-[9px] font-mono font-bold tracking-widest text-emerald-400 uppercase bg-emerald-500/10 border border-emerald-500/25 px-2 py-0.5 rounded-md">
+                            ACTIVE / READY
+                          </span>
+                        </div>
+                        <h3 className="text-sm font-bold text-white group-hover:text-cyan-400 transition-colors">
+                          {language === 'sr' ? 'Semantra Semantic Search' : 'Semantra Semantic Search'}
+                        </h3>
+                        <p className="text-xs text-gray-400 leading-relaxed font-sans">
+                          {language === 'sr' 
+                            ? 'Vektorski baziran semantički pretraživač tehničkih dokumenata, standarda i SMATSA EA planova.' 
+                            : 'Vector-similarity semantic reader indexing technical documents, governance standards, and SMATSA EA.'}
+                        </p>
+                      </div>
+                      <div className="flex items-center text-[11px] font-semibold text-cyan-400 group-hover:text-cyan-300 transition-colors pt-2">
+                        <span>{language === 'sr' ? 'Pokreni pretragu' : 'Run search'}</span>
+                        <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </div>
+
+                    {/* Card 5: Contact */}
+                    <div 
+                      onClick={() => setCurrentTab('contact')}
+                      className="group relative p-5 rounded-2xl bg-[#0b0b0b]/60 border border-white/5 hover:border-indigo-500/30 transition-all duration-300 hover:shadow-[0_4px_20px_rgba(99,102,241,0.05)] cursor-pointer flex flex-col justify-between space-y-4"
+                    >
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <div className="p-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 group-hover:bg-indigo-500/20 transition-all">
+                            <Mail className="w-5 h-5" />
+                          </div>
+                          <span className="text-[9px] font-mono font-bold tracking-widest text-indigo-400 uppercase bg-indigo-500/10 border border-indigo-500/25 px-2 py-0.5 rounded-md">
+                            GUESTBOOK
+                          </span>
+                        </div>
+                        <h3 className="text-sm font-bold text-white group-hover:text-indigo-400 transition-colors">
+                          {language === 'sr' ? 'Kontakt i Poruke' : 'Contact & Messages'}
+                        </h3>
+                        <p className="text-xs text-gray-400 leading-relaxed font-sans">
+                          {language === 'sr' 
+                            ? 'Direktan kanal komunikacije. Ostavite poruku, upit ili komentar o kros-sistemskim rešenjima.' 
+                            : 'Direct contact form. Leave feedback, enterprise queries, or general integration questions.'}
+                        </p>
+                      </div>
+                      <div className="flex items-center text-[11px] font-semibold text-indigo-400 group-hover:text-indigo-300 transition-colors pt-2">
+                        <span>{language === 'sr' ? 'Ostavi poruku' : 'Leave a message'}</span>
+                        <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </div>
+
                   </div>
-                  <MainBio language={language} onNavigateTab={setCurrentTab} />
                 </div>
               </div>
 
@@ -336,23 +451,25 @@ export default function App() {
             <div className="space-y-12 animate-fade-in">
               <DigiKlinciWidget language={language} />
               
-              <div className="border-t border-white/5 my-8"></div>
-              
-              {/* Feedback and message section */}
-              <FeedbackSection language={language} />
-
-              <div className="max-w-4xl mx-auto pt-4 flex justify-end">
+              <div className="max-w-4xl mx-auto pt-4 flex justify-between items-center">
+                <button
+                  onClick={() => setCurrentTab('contact')}
+                  id="btn-next-to-contact"
+                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold transition-all shadow-lg shadow-indigo-500/10 cursor-pointer"
+                >
+                  {language === 'sr' ? 'Kontaktiraj Slavišu ➡️' : 'Contact Slavisa ➡️'}
+                </button>
                 <button
                   onClick={() => setCurrentTab('computer')}
                   id="btn-back-to-computer-digi"
                   className="px-4 py-2 bg-[#111111] border border-white/5 rounded-xl hover:text-white hover:bg-white/5 text-xs font-medium transition-all text-gray-400 flex items-center gap-1.5 cursor-pointer"
                 >
                   <Cpu className="w-4 h-4 text-indigo-400" />
-                  <span>{language === 'sr' ? 'Nazad na Agentic konzolu' : 'Back to Agentic Console'}</span>
+                  <span>{language === 'sr' ? 'Nazad na Agentic' : 'Back to Agentic'}</span>
                 </button>
               </div>
             </div>
-          ) : (
+          ) : currentTab === 'semantra' ? (
             /* ========================================================
                SEMANTRA TAB (Semantic Search local document search app)
                ======================================================== */
@@ -366,6 +483,24 @@ export default function App() {
                   className="px-4 py-2 bg-[#111111] border border-white/5 rounded-xl hover:text-white hover:bg-white/5 text-xs font-medium transition-all text-gray-400 flex items-center gap-1.5 cursor-pointer"
                 >
                   <Cpu className="w-4 h-4 text-emerald-400" />
+                  <span>{language === 'sr' ? 'Nazad na Agentic konzolu' : 'Back to Agentic Console'}</span>
+                </button>
+              </div>
+            </div>
+          ) : (
+            /* ========================================================
+               CONTACT TAB (Leave a message)
+               ======================================================== */
+            <div className="space-y-8 animate-fade-in">
+              <FeedbackSection language={language} />
+              
+              <div className="max-w-xl mx-auto pt-4 flex justify-end">
+                <button
+                  onClick={() => setCurrentTab('computer')}
+                  id="btn-back-to-computer-contact"
+                  className="px-4 py-2 bg-[#111111] border border-white/5 rounded-xl hover:text-white hover:bg-white/5 text-xs font-medium transition-all text-gray-400 flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Cpu className="w-4 h-4 text-indigo-400" />
                   <span>{language === 'sr' ? 'Nazad na Agentic konzolu' : 'Back to Agentic Console'}</span>
                 </button>
               </div>

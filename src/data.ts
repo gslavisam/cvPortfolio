@@ -9,17 +9,17 @@ export const systemProfile: SystemProfile = {
   name: 'Slaviša Milinković',
   email: 'smilinkovic@outlook.com',
   location: 'Beograd, Srbija',
-  title: 'Senior Business Analyst, IT Specialist & Data Architect',
+  title: 'Senior Business Analyst, IT Specialist, Data Architect & Enterprise Architect',
   bio: 'Preko 25 godina iskustva u analizi, integraciji i modeliranju Enterprise i Data sistema (ERP, MES, DWH, ML).',
   fullBio: 'Senior poslovni analitičar i IT specijalista sa više od 25 godina iskustva u konfiguraciji, implementaciji i optimizaciji Enterprise aplikativnih rešenja (ERP, MES, DWH). Dokazani ekspert za upravljanje celokupnim životnim ciklusom softvera (SAP, Workday, OneStream, Odoo), od prikupljanja zahteva i API integracija do mentorisanja kros-funkcionalnih timova i vođenja projekata u automobilskoj industriji, bankarstvu i državnoj upravi.',
   skills: [
     {
       category: 'Enterprise Systems & ERP',
-      list: ['SAP (EAM, ACDOCA, HR)', 'Workday', 'OneStream', 'Odoo ERP', 'WMS', 'Legacy Systems Decommissioning']
+      list: ['SAP', 'Workday', 'OneStream', 'Odoo ERP', 'WMS', 'Legacy Systems Decommissioning']
     },
     {
       category: 'Data Engineering & Databases',
-      list: ['Python (Pandas, PySpark, NumPy)', 'Advanced SQL', 'Oracle', 'PostgreSQL', 'MS SQL Server', 'Azure Synapse', 'Azure Databricks', 'ETL Pipelines', 'Talend', 'SSIS / Kettle']
+      list: ['Data Architecture', 'DWH Architecture', 'Databricks (PySpark)', 'Data Vault 2.0', 'Star Schema & Snowflake Schema', 'Python', 'Advanced SQL', 'Oracle', 'PostgreSQL', 'MS SQL Server', 'Azure Synapse', 'ETL Pipelines', 'Talend', 'SSIS / Kettle']
     },
     {
       category: 'AI, Machine Learning & LLMs',
@@ -27,7 +27,7 @@ export const systemProfile: SystemProfile = {
     },
     {
       category: 'Project & Architecture Governance',
-      list: ['Jira & Confluence', 'UML Modeling', 'Domain Driven Design (DDD)', 'COBIT', 'ITIL', 'ISO 27000', 'Agile / Scrum / Kanban']
+      list: ['Enterprise Architecture', 'Jira & Confluence', 'UML Modeling', 'Domain Driven Design (DDD)', 'COBIT', 'ITIL', 'ISO 27000', 'Agile / Scrum / Kanban']
     }
   ]
 };
@@ -39,12 +39,12 @@ export const projects: Project[] = [
     company: 'Magna International',
     role: 'Senior Business Analyst',
     period: '2021 - Danas',
-    description: 'Dizajn arhitekture podataka, Workday i OneStream integracije, te implementacija ML algoritama za optimizaciju auto-industrije.',
-    longDescription: 'Na poziciji Senior poslovnog analitičara u kompaniji Magna vodim analizu poslovnih potreba za kompleksna softverska rešenja. Dizajniram strategije integracije podataka i data warehousing, vodim integracije platformi Workday i OneStream, i pružam naprednu tehničku podršku za SAP ekstrakciju podataka. Takođe podržavam ML projekte u proizvodnji, implementirajući algoritme (KNN, Random Forest, neuronske mreže) radi optimizacije industrijskih procesa.',
-    techStack: ['Workday', 'OneStream', 'SAP Data Extraction', 'Python (Pandas, scikit-learn)', 'Azure Synapse', 'Random Forest', 'Neural Networks', 'ETL Pipelines'],
+    description: 'Dizajn arhitekture podataka, DWH integracije (Databricks, Azure Synapse), Workday i OneStream platforme, te ML modeli u proizvodnji.',
+    longDescription: 'Na poziciji Senior poslovnog analitičara u kompaniji Magna vodim analizu poslovnih potreba za kompleksna softverska rešenja. Dizajniram strategije integracije podataka i data warehousing (implementacija Databricks i Azure Synapse okruženja, modeliranje Star Schema prezentacionih struktura), vodim integracije platformi Workday i OneStream, i pružam naprednu tehničku podršku za SAP ekstrakciju podataka. Takođe podržavam ML projekte u proizvodnji, implementirajući algoritme (KNN, Random Forest, neuronske mreže) na Databricks klasterima radi optimizacije industrijskih procesa.',
+    techStack: ['DWH', 'Databricks (PySpark)', 'Star Schema', 'Workday', 'OneStream', 'SAP Data Extraction', 'Python', 'Azure Synapse', 'Random Forest', 'Neural Networks', 'ETL Pipelines'],
     metrics: [
       { label: 'Integrisani sistemi', value: 'Workday & OneStream', icon: 'Settings' },
-      { label: 'Analiza podataka', value: 'Optimizacija proizvodnje', icon: 'Database' },
+      { label: 'Analiza podataka', value: 'Databricks DWH', icon: 'Database' },
       { label: 'Mašinsko učenje', value: 'KNN & Random Forest', icon: 'Cpu' }
     ],
     accentColor: '#6366f1' // indigo-500
@@ -55,11 +55,11 @@ export const projects: Project[] = [
     company: 'MD&Profy / S-TIM ICT',
     role: 'IT Consultant & Enterprise Architect',
     period: '2012 - 2022',
-    description: 'Upravljanje IT transformacijama, modeliranje sistema za SMATSA-u, dizajn DWH input tokova za 20M+ zapisa i Odoo rešenja.',
-    longDescription: 'Kao IT konsultant i arhitekt preduzeća, vodio sam end-to-end IT transformacije. Za SMATSA-u sam projektovao sisteme za planiranje, budžetiranje i upravljanje imovinom, uz reverzni inženjering nasleđenih procesa. Kroz agenciju S-TIM ICT kreirao sam DWH sisteme sa Python Pandas za obradu preko 20 miliona zapisa, implementirao Odoo ERP rešenja za javnu upravu i obavljao strateško savetovanje (UNDP, Beohemija, Carnex, poreska policija).',
-    techStack: ['Python (Pandas)', 'Odoo ERP', 'UML Modeling', 'PostgreSQL / Oracle', 'Talend / SSIS', 'COBIT / ITIL', 'ISO 27000', 'PowerBI / QlikView'],
+    description: 'Upravljanje IT transformacijama, EA arhitektura i planiranje za SMATSA-u, dizajn DWH rešenja (Star Schema, Data Vault, Snowflake Schema) i Odoo ERP.',
+    longDescription: 'Kao IT konsultant i arhitekt preduzeća, vodio sam end-to-end IT transformacije, projektovao sisteme za planiranje i budžetiranje, te dizajnirao moderne analitičke platforme. Za SMATSA-u sam vodio projekat arhitekture preduzeća (EA) i projektovao sisteme za planiranje i budžetiranje uz reverzni inženjering nasleđenih procesa. Projektovao sam DWH sisteme koristeći dimenzionalno modeliranje (Star Schema, Snowflake Schema) i napredne metodologije poput Data Vault 2.0 (Hub-ovi, Linkovi, Sateliti) za robustnu integraciju podataka kod drugih enterprise klijenata. Pružao sam strateško savetovanje (UNDP, Beohemija, Carnex, poreska policija) i vodio implementaciju Odoo ERP platforme.',
+    techStack: ['Enterprise Architecture', 'Planning & Budgeting', 'DWH', 'Star Schema', 'Data Vault 2.0', 'Snowflake Schema', 'Databricks (PySpark)', 'Python', 'Odoo ERP', 'UML Modeling', 'PostgreSQL / Oracle', 'Talend / SSIS', 'COBIT / ITIL', 'ISO 27000'],
     metrics: [
-      { label: 'DWH obrada podataka', value: '20M+ redova', icon: 'Database' },
+      { label: 'DWH modeliranje', value: 'Star Schema & Data Vault', icon: 'Database' },
       { label: 'Strateško savetovanje', value: 'UNDP & Javna uprava', icon: 'GraduationCap' },
       { label: 'Implementirani ERP', value: 'Odoo & WMS', icon: 'Settings' }
     ],
@@ -123,7 +123,7 @@ export const initialTimelineSteps: TimelineStep[] = [
     timestamp: '08:12:12',
     outputLog: [
       '🌐 Skeniranje sistema integracija...',
-      '📈 Magna: Vođenje Workday i OneStream integracija, SAP ACDOCA i HR ekstrakcija podataka.',
+      '📈 Magna: Vođenje Workday i OneStream integracija, te SAP ekstrakcija podataka.',
       '💼 MD&Profy: Dizajn data arhitekture za SAP AG, ING Bank, AKBank, KKB i AHB Bank.',
       '🏢 S-TIM ICT: Odoo implementacija kataloga poslova za Ministarstvo državne uprave.',
       '🔗 Arhitektura upravljanja: Primena COBIT, ITIL, ISO 27000 i TOGAF principa.',
@@ -131,7 +131,7 @@ export const initialTimelineSteps: TimelineStep[] = [
     ],
     outputLogEn: [
       '🌐 Scanning system integrations...',
-      '📈 Magna: Managing Workday & OneStream integrations, SAP ACDOCA & HR data extraction.',
+      '📈 Magna: Managing Workday & OneStream integrations, and SAP data extraction.',
       '💼 MD&Profy: Designing data architecture for SAP AG, ING Bank, AKBank, KKB, and AHB Bank.',
       '🏢 S-TIM ICT: Odoo job catalog implementation for the Ministry of Public Administration.',
       '🔗 Governance Architecture: Applying COBIT, ITIL, ISO 27000, and TOGAF principles.',
@@ -152,7 +152,7 @@ export const initialTimelineSteps: TimelineStep[] = [
       '🛠️ ML modeli u proizvodnji: Primena KNN, Random Forest i neuronskih mreža za optimizaciju.',
       '📈 Predviđanje vremenskih serija: AutoGluon i TimeGPT integracije.',
       '🧠 Fino podešavanje otvorenih modela: Gemma i LLaMA preko PEFT/LoRA i Unsloth.',
-      '🐍 Napredna automatizacija: Python (Pandas) za obradu velikih datoteka (20M+ redova po fajlu).',
+      '🐍 Napredna automatizacija: Databricks i PySpark za obradu velikih datoteka (20M+ redova po fajlu).',
       '🟢 Generisana karta ekspertize u mašinskom učenju i DWH analitici.'
     ],
     outputLogEn: [
@@ -160,14 +160,14 @@ export const initialTimelineSteps: TimelineStep[] = [
       '🛠️ ML models in production: Applying KNN, Random Forest, and neural networks for optimization.',
       '📈 Time series forecasting: AutoGluon and TimeGPT integrations.',
       '🧠 Fine-tuning open models: Gemma and LLaMA via PEFT/LoRA and Unsloth.',
-      '🐍 Advanced automation: Python (Pandas) for processing large datasets (20M+ rows per file).',
+      '🐍 Advanced automation: Databricks and PySpark for processing large datasets (20M+ rows per file).',
       '🟢 Generated expertise map in Machine Learning & DWH analytics.'
     ],
     codeFiles: [
       {
-        name: 'ml_pipeline.py',
+        name: 'ml_pipeline_pyspark.py',
         language: 'python',
-        content: `import pandas as pd\nfrom sklearn.ensemble import RandomForestRegressor\n\ndef optimize_manufacturing_process(data_path):\n    # Učitavanje 20M+ redova podataka iz proizvodnje\n    df = pd.read_csv(data_path)\n    \n    # Izbor ključnih karakteristika (metal forming, welding, temperature)\n    features = ['temp', 'pressure', 'force_kn', 'cycle_time_s']\n    X = df[features]\n    y = df['quality_index']\n    \n    # Random Forest model za predviđanje kvaliteta\n    model = RandomForestRegressor(n_estimators=100, random_state=42)\n    model.fit(X, y)\n    \n    return model.feature_importances_`
+        content: `from pyspark.sql import SparkSession\nfrom pyspark.ml.regression import RandomForestRegressor\nfrom pyspark.ml.feature import VectorAssembler\n\ndef optimize_manufacturing_process(data_path):\n    # Inicijalizacija Spark/Databricks sesije za obradu 20M+ redova\n    spark = SparkSession.builder.appName("MagnaMLOptimization").getOrCreate()\n    df = spark.read.csv(data_path, header=True, inferSchema=True)\n    \n    # Izbor ključnih karakteristika (temperatura, pritisak, sila, ciklus)\n    feature_cols = ['temp', 'pressure', 'force_kn', 'cycle_time_s']\n    assembler = VectorAssembler(inputCols=feature_cols, outputCol="features")\n    df_assembled = assembler.transform(df)\n    \n    # Random Forest model na Databricks klasteru\n    rf = RandomForestRegressor(featuresCol="features", labelCol="quality_index", numTrees=100)\n    model = rf.fit(df_assembled)\n    \n    return model.featureImportances`
       }
     ]
   },

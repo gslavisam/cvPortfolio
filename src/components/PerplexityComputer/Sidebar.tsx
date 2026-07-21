@@ -7,14 +7,13 @@ import React from 'react';
 import { 
   Terminal, 
   Home, 
-  Compass, 
-  Library, 
   Cpu, 
   Globe, 
   Database, 
   Settings,
   Search,
-  X
+  X,
+  Mail
 } from 'lucide-react';
 import { systemProfile } from '../../data';
 
@@ -40,11 +39,7 @@ export default function Sidebar({
     { id: 'orbitmi', labelSr: 'Magna ML & ERP', labelEn: 'Magna ML & ERP', icon: Settings },
     { id: 'digiklinci', labelSr: 'Enterprise DWH & Odoo', labelEn: 'Enterprise DWH & Odoo', icon: Database },
     { id: 'semantra', labelSr: 'Semantra Search', labelEn: 'Semantra Search', icon: Search },
-  ];
-
-  const secondaryItems = [
-    { id: 'discover', labelSr: 'Istraži', labelEn: 'Discover', icon: Compass },
-    { id: 'library', labelSr: 'Biblioteka', labelEn: 'Library', icon: Library },
+    { id: 'contact', labelSr: 'Kontakt / Poruka', labelEn: 'Contact / Message', icon: Mail },
   ];
 
   return (
@@ -120,28 +115,6 @@ export default function Sidebar({
         </div>
 
         {/* Workspace Mock Details */}
-        <div className="p-3 border-t border-white/5 mt-2 space-y-1">
-          <div className="px-3 mb-2">
-            <span className="text-[10px] uppercase font-bold tracking-widest text-gray-500 font-mono">
-              {language === 'sr' ? 'Funkcije pretrage' : 'Search Features'}
-            </span>
-          </div>
-          {secondaryItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <button
-                key={item.id}
-                disabled
-                className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 cursor-not-allowed font-medium font-sans text-left opacity-50"
-              >
-                <div className="w-2 h-2 rounded-full bg-transparent shrink-0"></div>
-                <Icon className="w-4 h-4 text-gray-700" />
-                <span className="text-xs">{language === 'sr' ? item.labelSr : item.labelEn}</span>
-                <span className="ml-auto text-[8px] px-1.5 py-0.5 rounded bg-white/5 text-gray-500 font-mono uppercase border border-white/5">Pro</span>
-              </button>
-            );
-          })}
-        </div>
       </div>
 
       {/* Bottom Footer / Lang / Profile */}

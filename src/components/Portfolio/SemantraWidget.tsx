@@ -38,7 +38,7 @@ interface SearchResult {
 }
 
 export default function SemantraWidget({ language }: SemantraWidgetProps) {
-  const [selectedDocId, setSelectedDocId] = useState<'ea_standard' | 'automotive_ml' | 'fine_tuning'>('ea_standard');
+  const [selectedDocId, setSelectedDocId] = useState<'ea_standard' | 'dwh_architecture' | 'automotive_ml' | 'fine_tuning'>('dwh_architecture');
   const [searchQuery, setSearchQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [activeHighlightId, setActiveHighlightId] = useState<string | null>(null);
@@ -51,8 +51,8 @@ export default function SemantraWidget({ language }: SemantraWidgetProps) {
 
   const documents = {
     ea_standard: {
-      titleSr: 'Standardi Arhitekture Preduzeća (SMATSA & DWH)',
-      titleEn: 'Enterprise Architecture & DWH Standards (SMATSA)',
+      titleSr: 'Standardi Arhitekture Preduzeća i Planiranje (SMATSA EA)',
+      titleEn: 'Enterprise Architecture & Planning Standards (SMATSA)',
       author: 'Slaviša Milinković',
       date: '2018',
       chunks: [
@@ -67,15 +67,15 @@ export default function SemantraWidget({ language }: SemantraWidgetProps) {
           id: 'ea-2',
           page: 1,
           paragraph: 2,
-          textSr: 'Prilikom reverznog inženjeringa nasleđenih input tokova, uočen je nedostatak referencijalnog integriteta u starim tabelama nabavke. DWH arhitektura usvaja Python Pandas ETL pipeline-ove za automatsku validaciju stranih ključeva i deduplikaciju pre učitavanja u centralno skladište.',
-          textEn: 'During reverse engineering of legacy input streams, a severe lack of referential integrity was detected in legacy procurement tables. The DWH architecture adopts Python Pandas ETL pipelines to automatically validate foreign keys and clean records prior to loading.'
+          textSr: 'Prilikom reverznog inženjeringa nasleđenih input tokova, uočen je nedostatak referencijalnog integriteta u starim tabelama nabavke. U okviru EA projekta sproveden je detaljan reverzni inženjering sa fokusom na mapiranje i konsolidaciju tokova podataka za planiranje nabavke i finansija.',
+          textEn: 'During reverse engineering of legacy input streams, a severe lack of referential integrity was detected in legacy procurement tables. The EA project focused on mapping and consolidating data flows for procurement and financial planning.'
         },
         {
           id: 'ea-3',
           page: 2,
           paragraph: 1,
-          textSr: 'Dizajniranjem centralnog skladišta (DWH) omogućena je analitika u realnom vremenu za preko 20 miliona transakcionih zapisa godišnje. Podaci se normalizuju u Star Schema strukturu, gde su dimenzije organizacione jedinice, vazdušni sektori i klase troškova povezane sa tabelom činjenica o rashodima.',
-          textEn: 'Designing the central data warehouse (DWH) enabled real-time analytics for over 20 million transactional records annually. Data is normalized into a Star Schema structure, linking dimensions such as organizational units, airspace sectors, and expense classes to the expenditure facts.'
+          textSr: 'Sistem za planiranje i budžetiranje je modeliran na principima kros-funkcionalne integracije, gde su organizacione jedinice, vazdušni sektori i klase troškova povezani sa projektovanim planovima rashoda, omogućavajući napredne simulacije i analize scenarija.',
+          textEn: 'The planning and budgeting system is modeled on principles of cross-functional integration, linking organizational units, airspace sectors, and expense classes with projected expenditure plans to enable advanced simulations and scenario analysis.'
         },
         {
           id: 'ea-4',
@@ -83,6 +83,42 @@ export default function SemantraWidget({ language }: SemantraWidgetProps) {
           paragraph: 2,
           textSr: 'Uvođenjem Odoo ERP rešenja za javni sektor, moduli kataloga poslova su mapirani u standardizovane UML dijagrame slučajeva upotrebe. Domain-Driven Design (DDD) pristup sprečio je kolizije šema podataka između finansijskog i kadrovskog podsistema.',
           textEn: 'Deploying Odoo ERP solutions for public administration required mapping job catalog modules into standardized UML Use Case diagrams. The Domain-Driven Design (DDD) paradigm successfully avoided schema conflicts between financial and HR subsystems.'
+        }
+      ]
+    },
+    dwh_architecture: {
+      titleSr: 'Projektovanje DWH arhitekture: Star Schema, Snowflake Schema i Data Vault 2.0',
+      titleEn: 'DWH Architecture Design: Star Schema, Snowflake Schema, and Data Vault 2.0',
+      author: 'Slaviša Milinković',
+      date: '2024',
+      chunks: [
+        {
+          id: 'dwh-1',
+          page: 1,
+          paragraph: 1,
+          textSr: 'U modernim analitičkim sistemima, izgradnja skalabilnog skladišta podataka (DWH) zahteva jasan i modularan dizajn. Implementacija cloud DWH arhitekture nudi neograničenu skalabilnost, dok se na nivou modeliranja podataka primenjuje Star Schema za prezentacioni sloj i Data Vault 2.0 za sloj sirovih integracija.',
+          textEn: 'In modern analytical systems, building a scalable data warehouse (DWH) requires a clear and modular design. Deploying a cloud-based DWH architecture offers unlimited scalability, while Star Schema modeling is applied for the presentation layer and Data Vault 2.0 is used for the raw integration layer.'
+        },
+        {
+          id: 'dwh-2',
+          page: 1,
+          paragraph: 2,
+          textSr: 'Primenom Data Vault 2.0 metodologije, podaci se razdvajaju na Hub-ove (poslovne entitete), Linkove (relacije između njih) i Satelite (opisne atribute sa istorijom promena). Ovakav pristup omogućava paralelno učitavanje podataka bez kompleksnih zavisnosti o stranim ključevima.',
+          textEn: 'Applying Data Vault 2.0 methodology splits data into Hubs (core business concepts), Links (relationships between them), and Satellites (descriptive attributes with historical tracking). This paradigm enables massive parallel data loading without strict foreign key constraints.'
+        },
+        {
+          id: 'dwh-3',
+          page: 2,
+          paragraph: 1,
+          textSr: 'Za potrebe biznis analitike i izveštavanja (BI), podaci iz Data Vault sloja se transformišu i agregiraju u dimenzionalne modele. Star Schema i Snowflake Schema se koriste za kreiranje tabela činjenica (Fact) i dimenzionih tabela (Dimension), obezbeđujući maksimalne performanse upita.',
+          textEn: 'For business intelligence (BI) and reporting, data from the Data Vault layer is transformed and aggregated into dimensional models. Star Schema and Snowflake Schema structures are utilized to construct Fact and Dimension tables, ensuring peak query performance.'
+        },
+        {
+          id: 'dwh-4',
+          page: 2,
+          paragraph: 2,
+          textSr: 'Integracija različitih izvora (ERP, CRM, eksterni API-ji) u DWH skladište olakšava cross-system analitiku. Virtuelni računarski resursi u modernim DWH platformama se dinamički skaliraju, odvajajući ETL procese od korisničkih upita i eliminišući konkurenciju za resurse.',
+          textEn: 'Integrating diverse data sources (ERP, CRM, external APIs) into the DWH warehouse facilitates seamless cross-system analytics. Virtual computing resources in modern DWH platforms scale dynamically, segregating ETL processing workloads from user queries and eliminating resource contention.'
         }
       ]
     },
@@ -169,41 +205,68 @@ export default function SemantraWidget({ language }: SemantraWidgetProps) {
 
     setIsSearching(true);
 
+    // Function to normalize Serbian letters to standard Latin
+    const normalize = (str: string) => {
+      return str
+        .toLowerCase()
+        .replace(/š/g, 's')
+        .replace(/đ/g, 'd')
+        .replace(/č/g, 'c')
+        .replace(/ć/g, 'c')
+        .replace(/ž/g, 'z');
+    };
+
     // Simulate vector embedding generation delay
     setTimeout(() => {
       const activeDoc = documents[selectedDocId];
-      const queryTerms = searchQuery.toLowerCase().split(/\s+/).filter(t => t.length > 2);
+      const normalizedQuery = normalize(searchQuery);
+      
+      // Split into query words (terms) supporting 2-letter queries (e.g. ea, ml, db, sap)
+      const queryTerms = normalizedQuery
+        .split(/[\s,\.\-\/\(\)]+/)
+        .filter(t => t.length >= 2);
 
       const searchScores = activeDoc.chunks.map(chunk => {
         const text = language === 'sr' ? chunk.textSr : chunk.textEn;
-        const textLower = text.toLowerCase();
+        const textNorm = normalize(text);
         
         // Dynamic semantic-like heuristics
         let score = 0;
         
         // 1. Direct Term Match
-        queryTerms.forEach(term => {
-          if (textLower.includes(term)) {
-            score += 0.35;
-            const termOccurrences = textLower.split(term).length - 1;
-            score += termOccurrences * 0.1;
-          }
-        });
+        if (queryTerms.length > 0) {
+          queryTerms.forEach(term => {
+            if (textNorm.includes(term)) {
+              score += 0.45;
+              const termOccurrences = textNorm.split(term).length - 1;
+              score += termOccurrences * 0.15;
+            } else if (term.length >= 4) {
+              // Slavic language stemmer fallback (remove typical case endings)
+              const stem = term.substring(0, Math.max(3, term.length - 2));
+              if (textNorm.includes(stem)) {
+                score += 0.30; // Solid partial match
+              }
+            }
+          });
+        }
 
         // 2. Mapped Semantic Synonyms for high-fidelity simulation
         const synonyms: { [key: string]: string[] } = {
-          smatsa: ['letenje', 'kontrole', 'vazdušni', 'saobraćaj', 'budget', 'budžet', 'planning', 'planning', 'budgeting'],
-          dwh: ['skladište', 'analitika', 'dimenzije', 'baze', 'database', 'warehouse', 'star', 'shema', 'transakcionih'],
+          smatsa: ['letenje', 'kontrole', 'vazdušni', 'saobraćaj', 'budget', 'budžet', 'planning', 'budgeting', 'planiranje'],
+          dwh: ['skladište', 'analitika', 'dimenzije', 'baze', 'database', 'warehouse', 'star', 'shema', 'transakcionih', 'vault', 'star schema', 'hubs', 'links', 'satellites'],
+          schema: ['snowflake schema', 'star schema', 'dimenzionalni', 'database', 'warehouse', 'dwh', 'modeling', 'modeliranje'],
+          vault: ['data vault', 'hub', 'link', 'satelit', 'hubs', 'links', 'satellites', 'paralelno', 'parallel', 'loading', 'učitanje'],
+          star: ['star schema', 'dimenzionalni', 'facts', 'dimensions', 'činjenica', 'dimenzije', 'normalizuju', 'bi', 'upita', 'query'],
           magna: ['pogon', 'fabrika', 'automobilskoj', 'press', 'presa', 'tonage', 'scraps', 'proizvodnji', 'stamping', 'automotive'],
           ml: ['sensor', 'senzor', 'random', 'forest', 'knn', 'anomalija', 'učenje', 'machine', 'learning', 'databricks', 'synapse'],
           gemma: ['llm', 'llama', 'fino', 'podešavanje', 'tuning', 'unsloth', 'peft', 'lora', 'training', 'gpu'],
-          agent: ['crewai', 'langchain', 'autonomnih', 'virtuelnih', 'analitičara', 'squard']
+          agent: ['crewai', 'langchain', 'autonomnih', 'virtuelnih', 'analitičara', 'squad']
         };
 
         Object.keys(synonyms).forEach(key => {
-          if (searchQuery.toLowerCase().includes(key)) {
+          if (normalizedQuery.includes(key)) {
             synonyms[key].forEach(syn => {
-              if (textLower.includes(syn)) {
+              if (textNorm.includes(normalize(syn))) {
                 score += 0.25;
               }
             });
@@ -213,7 +276,7 @@ export default function SemantraWidget({ language }: SemantraWidgetProps) {
         // Normalize score between 0 and 1
         const finalScore = score === 0 
           ? 0.05 + Math.random() * 0.08 // tiny background similarity
-          : Math.min(0.98, 0.22 + score / (queryTerms.length + 1) + (Math.random() * 0.05));
+          : Math.min(0.98, 0.25 + score / (Math.max(1, queryTerms.length) + 0.5) + (Math.random() * 0.05));
 
         return {
           chunk,
@@ -222,9 +285,25 @@ export default function SemantraWidget({ language }: SemantraWidgetProps) {
       });
 
       // Filter by similarity threshold
-      const filteredResults = searchScores
+      let filteredResults = searchScores
         .filter(res => res.score >= similarityThreshold)
         .sort((a, b) => b.score - a.score);
+
+      // Fallback: If no results pass the current threshold but there are matches with > 0.15 score,
+      // let's show them anyway and automatically lower the visual threshold/state to match them,
+      // so the search doesn't appear empty or broken!
+      if (filteredResults.length === 0) {
+        const potentialMatches = searchScores
+          .filter(res => res.score > 0.15)
+          .sort((a, b) => b.score - a.score);
+        
+        if (potentialMatches.length > 0) {
+          filteredResults = potentialMatches;
+          // Set the threshold state to the lowest score of returned results to keep UI in sync
+          const lowestScore = potentialMatches[potentialMatches.length - 1].score;
+          setSimilarityThreshold(Math.max(0.1, parseFloat((lowestScore - 0.02).toFixed(2))));
+        }
+      }
 
       setResults(filteredResults);
       setIsSearching(false);
@@ -255,8 +334,12 @@ export default function SemantraWidget({ language }: SemantraWidgetProps) {
     switch (selectedDocId) {
       case 'ea_standard':
         return language === 'sr' 
-          ? ['SMATSA kontrola letenja', 'DWH obrada preko 20 miliona zapisa', 'Odoo ERP implementacija i UML']
-          : ['SMATSA air traffic control', 'DWH processing 20M records', 'Odoo ERP deployment & UML'];
+          ? ['SMATSA kontrola letenja', 'Sistem planiranja i budžetiranja', 'Odoo ERP implementacija i UML']
+          : ['SMATSA air traffic control', 'Planning and budgeting system', 'Odoo ERP deployment & UML'];
+      case 'dwh_architecture':
+        return language === 'sr'
+          ? ['DWH arhitektura i dizajn', 'Data Vault 2.0 Hub i Sateliti', 'Star Schema i dimenzionalno modeliranje']
+          : ['DWH architecture & design', 'Data Vault 2.0 Hubs and Satellites', 'Star Schema & dimensional modeling'];
       case 'automotive_ml':
         return language === 'sr'
           ? ['Pregrevanje presa u Magni', 'Sila pritiska i tonaža presa', 'OneStream i Workday integracija']
@@ -335,6 +418,7 @@ export default function SemantraWidget({ language }: SemantraWidgetProps) {
               id="semantra-doc-select"
               className="px-3 py-1 bg-black border border-white/5 rounded-lg text-xs font-sans text-gray-300 focus:outline-none focus:border-emerald-500 transition-colors"
             >
+              <option value="dwh_architecture">📂 DWH & Data Vault 2.0</option>
               <option value="ea_standard">📂 SMATSA Enterprise Arh.</option>
               <option value="automotive_ml">📂 Magna ML Production</option>
               <option value="fine_tuning">📂 LLM Fine-Tuning Spec.</option>
@@ -566,19 +650,25 @@ export default function SemantraWidget({ language }: SemantraWidgetProps) {
 
             {/* Core cluster nodes representing our documents */}
             {/* EA Standard cluster */}
-            <div className="absolute left-1/4 top-1/3 text-center">
+            <div className="absolute left-[15%] top-1/3 text-center">
               <span className="w-2 h-2 rounded-full bg-indigo-500 inline-block shadow-[0_0_8px_rgba(99,102,241,0.6)]"></span>
               <span className="text-[8px] font-mono text-gray-500 block">SMATSA EA</span>
             </div>
 
+            {/* Data Vault DWH cluster */}
+            <div className="absolute left-[38%] top-[22%] text-center">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block shadow-[0_0_8px_rgba(16,185,129,0.6)]"></span>
+              <span className="text-[8px] font-mono text-gray-500 block">Data Vault DWH</span>
+            </div>
+
             {/* Automotive ML cluster */}
-            <div className="absolute left-1/2 top-2/3 text-center">
+            <div className="absolute left-[62%] top-2/3 text-center">
               <span className="w-2 h-2 rounded-full bg-cyan-400 inline-block shadow-[0_0_8px_rgba(34,211,238,0.6)]"></span>
               <span className="text-[8px] font-mono text-gray-500 block">Magna ML</span>
             </div>
 
             {/* LLM Fine tuning cluster */}
-            <div className="absolute left-3/4 top-1/4 text-center">
+            <div className="absolute left-[85%] top-1/3 text-center">
               <span className="w-2 h-2 rounded-full bg-purple-500 inline-block shadow-[0_0_8px_rgba(168,85,247,0.6)]"></span>
               <span className="text-[8px] font-mono text-gray-500 block">Gemma RAG</span>
             </div>
@@ -587,8 +677,20 @@ export default function SemantraWidget({ language }: SemantraWidgetProps) {
             {results.length > 0 && (
               <motion.div 
                 animate={{ 
-                  x: selectedDocId === 'ea_standard' ? -100 : selectedDocId === 'automotive_ml' ? 0 : 100,
-                  y: selectedDocId === 'ea_standard' ? -20 : selectedDocId === 'automotive_ml' ? 25 : -30,
+                  x: selectedDocId === 'ea_standard' 
+                    ? -140 
+                    : selectedDocId === 'dwh_architecture' 
+                    ? -40 
+                    : selectedDocId === 'automotive_ml' 
+                    ? 45 
+                    : 140,
+                  y: selectedDocId === 'ea_standard' 
+                    ? -15 
+                    : selectedDocId === 'dwh_architecture' 
+                    ? -25 
+                    : selectedDocId === 'automotive_ml' 
+                    ? 20 
+                    : -15,
                 }}
                 transition={{ type: 'spring', damping: 15 }}
                 className="absolute text-center z-10"
