@@ -16,12 +16,34 @@ import {
   BookOpen,
   CheckCircle,
   Hash,
-  Share2
+  Share2,
+  Check,
+  X,
+  ShieldCheck,
+  Layers,
+  GitMerge,
+  ArrowRight,
+  Database,
+  RefreshCw,
+  Info
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
 interface SemantraWidgetProps {
   language: 'sr' | 'en';
+}
+
+interface CandidateMapping {
+  id: string;
+  sourceField: string;
+  targetField: string;
+  confidenceScore: number;
+  matchType: string;
+  canonicalConcept: string;
+  transformation: string;
+  reviewNotesSr: string;
+  reviewNotesEn: string;
+  status: 'approved' | 'rejected' | 'pending';
 }
 
 interface DocumentChunk {
@@ -38,6 +60,7 @@ interface SearchResult {
 }
 
 export default function SemantraWidget({ language }: SemantraWidgetProps) {
+  const [activeTab, setActiveTab] = useState<'architecture' | 'search'>('architecture');
   const [selectedDocId, setSelectedDocId] = useState<'ea_standard' | 'dwh_architecture' | 'automotive_ml' | 'fine_tuning'>('dwh_architecture');
   const [searchQuery, setSearchQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -46,6 +69,67 @@ export default function SemantraWidget({ language }: SemantraWidgetProps) {
   const [isSearching, setIsSearching] = useState(false);
   const [selectedModel, setSelectedModel] = useState('bge-large-en-v1.5');
   const [showVectorSpace, setShowVectorSpace] = useState(true);
+
+  // Signal weights for architecture simulator
+  const [lexicalWeight, setLexicalWeight] = useState<number>(0.35);
+  const [canonicalWeight, setCanonicalWeight] = useState<number>(0.25);
+  const [semanticWeight, setSemanticWeight] = useState<number>(0.40);
+
+  // Mapping candidates for Trust Layer review (Real Semantra Pipeline Snapshot)
+  const [candidates, setCandidates] = useState<CandidateMapping[]>([
+    {
+      id: 'c1',
+      sourceField: 'Source: KUNNR',
+      targetField: 'customer.id',
+      confidenceScore: 86,
+      matchType: 'Knowledge-backed & Canonical-backed match',
+      canonicalConcept: 'Customer ID (customer.id)',
+      transformation: 'direct',
+      reviewNotesSr: 'SAP šifra kupca usaglašena sa kanonskim Customer ID entitetom u MDM katalogu.',
+      reviewNotesEn: 'SAP customer code aligned with canonical Customer ID entity in MDM catalog.',
+      status: 'pending'
+    },
+    {
+      id: 'c2',
+      sourceField: 'Source: NAME1',
+      targetField: 'supplier.name',
+      confidenceScore: 86,
+      matchType: 'Knowledge-backed & Canonical-backed match',
+      canonicalConcept: 'Supplier Name (supplier.name), Vendor Name (vendor.name), Contact Name (contact.name)',
+      transformation: 'direct',
+      reviewNotesSr: 'SAP primarni naziv dobavljača/partnera uočen i mapiran na kanonski Supplier Name.',
+      reviewNotesEn: 'SAP primary supplier/partner name mapped directly to canonical Supplier Name.',
+      status: 'pending'
+    },
+    {
+      id: 'c3',
+      sourceField: 'Source: LAND1',
+      targetField: 'supplier.country_code',
+      confidenceScore: 81,
+      matchType: 'Knowledge-backed & Canonical-backed match',
+      canonicalConcept: 'Supplier Country Code (supplier.country_code), Address Country Code',
+      transformation: 'direct',
+      reviewNotesSr: 'SAP dvoslovna oznaka zemlje dobavljača usaglašena sa ISO-3166 kanonskim standardom.',
+      reviewNotesEn: 'SAP 2-letter country code matched with canonical ISO-3166 country standard.',
+      status: 'pending'
+    },
+    {
+      id: 'c4',
+      sourceField: 'Source: MATNR',
+      targetField: 'product.material_id',
+      confidenceScore: 92,
+      matchType: 'Deterministic & Schema-backed match',
+      canonicalConcept: 'Material Number (product.material_id), SKU Identifier',
+      transformation: 'direct',
+      reviewNotesSr: 'SAP šifra materijala / artikla identifikovana sa 92% pouzdanosti.',
+      reviewNotesEn: 'SAP Material Master number identified with 92% deterministic confidence.',
+      status: 'pending'
+    }
+  ]);
+
+  const handleCandidateAction = (id: string, action: 'approved' | 'rejected') => {
+    setCandidates(prev => prev.map(c => c.id === id ? { ...c, status: action } : c));
+  };
 
   const chunkRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
@@ -399,6 +483,332 @@ export default function SemantraWidget({ language }: SemantraWidgetProps) {
         </p>
       </div>
 
+      {/* Navigation Tabs Header */}
+      <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-xl bg-black/60 border border-white/10">
+        <button
+          onClick={() => setActiveTab('architecture')}
+          id="btn-tab-architecture"
+          className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+            activeTab === 'architecture'
+              ? 'bg-gradient-to-r from-indigo-600 to-indigo-800 text-white shadow-lg border border-indigo-400/30'
+              : 'text-gray-400 hover:text-white hover:bg-white/5'
+          }`}
+        >
+          <GitMerge className="w-4 h-4" />
+          <span>{language === 'sr' ? '1. Arhitektura & Trust Layer Review' : '1. Architecture Flow & Trust Layer Review'}</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('search')}
+          id="btn-tab-search"
+          className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+            activeTab === 'search'
+              ? 'bg-gradient-to-r from-emerald-600 to-emerald-800 text-white shadow-lg border border-emerald-400/30'
+              : 'text-gray-400 hover:text-white hover:bg-white/5'
+          }`}
+        >
+          <Search className="w-4 h-4" />
+          <span>{language === 'sr' ? '2. Simulator Vektorske Pretrage' : '2. Vector Search Engine Simulator'}</span>
+        </button>
+      </div>
+
+      {/* TAB 1: ARCHITECTURE FLOW & TRUST LAYER DIAGRAM */}
+      {activeTab === 'architecture' && (
+        <div className="space-y-6">
+          {/* Visual Interactive Pipeline Diagram */}
+          <div className="p-6 rounded-2xl bg-[#08080c] border border-indigo-500/20 shadow-2xl space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+              <div className="flex items-center gap-3">
+                <span className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                  <GitMerge className="w-5 h-5" />
+                </span>
+                <div>
+                  <h3 className="text-base font-bold text-white font-sans">
+                    {language === 'sr' ? 'Semantra Deterministički Multi-Signal Tok (Architecture Pipeline)' : 'Semantra Deterministic Multi-Signal Flow Pipeline'}
+                  </h3>
+                  <p className="text-xs text-gray-400 font-mono">
+                    Source ERP/CRM ➔ Multi-Signal Engine ➔ Ambiguity Band Filter ➔ Trust Layer Review ➔ Target MDM
+                  </p>
+                </div>
+              </div>
+              <span className="px-2.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-[10px] font-mono font-bold self-start sm:self-auto">
+                INTERACTIVE PIPELINE
+              </span>
+            </div>
+
+            {/* Pipeline Step Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 relative">
+              {/* Step 1: Source */}
+              <div className="p-3.5 rounded-xl bg-black/40 border border-white/10 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono font-bold text-gray-400 uppercase">STEP 01</span>
+                  <Database className="w-4 h-4 text-indigo-400" />
+                </div>
+                <h4 className="text-xs font-bold text-white">{language === 'sr' ? 'Izvorni Enterprise Sistemi' : 'Source Enterprise Systems'}</h4>
+                <p className="text-[10px] text-gray-400 leading-normal">
+                  SAP MARA, Salesforce Accounts, Odoo Partners, ING Bank TX
+                </p>
+              </div>
+
+              {/* Step 2: Multi-Signal Engine */}
+              <div className="p-3.5 rounded-xl bg-indigo-950/30 border border-indigo-500/30 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono font-bold text-indigo-400 uppercase">STEP 02</span>
+                  <Cpu className="w-4 h-4 text-indigo-400" />
+                </div>
+                <h4 className="text-xs font-bold text-white">{language === 'sr' ? 'Multi-Signal Scoring' : 'Multi-Signal Scoring Engine'}</h4>
+                <p className="text-[10px] text-gray-400 leading-normal">
+                  Lexical (Exact), Canonical Schema & Semantic Vector
+                </p>
+              </div>
+
+              {/* Step 3: Ambiguity Band */}
+              <div className="p-3.5 rounded-xl bg-amber-950/30 border border-amber-500/40 space-y-2 shadow-[0_0_15px_rgba(245,158,11,0.08)]">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono font-bold text-amber-400 uppercase">STEP 03</span>
+                  <ShieldCheck className="w-4 h-4 text-amber-400" />
+                </div>
+                <h4 className="text-xs font-bold text-amber-300">{language === 'sr' ? 'Ambiguity Band [0.55 - 0.85]' : 'Ambiguity Band Filter'}</h4>
+                <p className="text-[10px] text-gray-300 leading-normal">
+                  Controlled AI + Human-in-the-Loop Review
+                </p>
+              </div>
+
+              {/* Step 4: Master Catalog */}
+              <div className="p-3.5 rounded-xl bg-emerald-950/30 border border-emerald-500/30 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono font-bold text-emerald-400 uppercase">STEP 04</span>
+                  <CheckCircle className="w-4 h-4 text-emerald-400" />
+                </div>
+                <h4 className="text-xs font-bold text-white">{language === 'sr' ? 'Ciljni Master Katalog' : 'Target MDM Catalog'}</h4>
+                <p className="text-[10px] text-gray-400 leading-normal">
+                  Audit-Proof, verzionisana pravila & DWH Vault
+                </p>
+              </div>
+            </div>
+
+            {/* Interactive Weight Sliders */}
+            <div className="p-4 rounded-xl bg-black/60 border border-white/10 space-y-4">
+              <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                <div className="flex items-center gap-2">
+                  <Sliders className="w-4 h-4 text-indigo-400" />
+                  <h4 className="text-xs font-bold text-white font-mono uppercase">
+                    {language === 'sr' ? 'Podešavanje Težinskih Koeficijenata Signala (Live Weights)' : 'Live Signal Weight Tuning'}
+                  </h4>
+                </div>
+                <span className="text-[10px] font-mono text-gray-400">
+                  Total Weight: {((lexicalWeight + canonicalWeight + semanticWeight) * 100).toFixed(0)}%
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Lexical Weight */}
+                <div className="space-y-1.5">
+                  <div className="flex justify-between text-xs font-mono">
+                    <span className="text-gray-300">Lexical Exact Weight:</span>
+                    <span className="text-indigo-400 font-bold">{(lexicalWeight * 100).toFixed(0)}%</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0.10"
+                    max="0.60"
+                    step="0.05"
+                    value={lexicalWeight}
+                    onChange={(e) => setLexicalWeight(parseFloat(e.target.value))}
+                    className="w-full accent-indigo-500 h-1.5 bg-gray-800 rounded-lg cursor-pointer"
+                  />
+                  <p className="text-[9px] text-gray-500">Exact string match, column names</p>
+                </div>
+
+                {/* Canonical Weight */}
+                <div className="space-y-1.5">
+                  <div className="flex justify-between text-xs font-mono">
+                    <span className="text-gray-300">Canonical Rules Weight:</span>
+                    <span className="text-cyan-400 font-bold">{(canonicalWeight * 100).toFixed(0)}%</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0.10"
+                    max="0.60"
+                    step="0.05"
+                    value={canonicalWeight}
+                    onChange={(e) => setCanonicalWeight(parseFloat(e.target.value))}
+                    className="w-full accent-cyan-500 h-1.5 bg-gray-800 rounded-lg cursor-pointer"
+                  />
+                  <p className="text-[9px] text-gray-500">Data types, nullability, COBIT rules</p>
+                </div>
+
+                {/* Semantic Weight */}
+                <div className="space-y-1.5">
+                  <div className="flex justify-between text-xs font-mono">
+                    <span className="text-gray-300">Semantic Vector Weight:</span>
+                    <span className="text-emerald-400 font-bold">{(semanticWeight * 100).toFixed(0)}%</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0.10"
+                    max="0.60"
+                    step="0.05"
+                    value={semanticWeight}
+                    onChange={(e) => setSemanticWeight(parseFloat(e.target.value))}
+                    className="w-full accent-emerald-500 h-1.5 bg-gray-800 rounded-lg cursor-pointer"
+                  />
+                  <p className="text-[9px] text-gray-500">Embedding similarity (bge-large / Gemma)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Interactive Candidate Mapping Table (Trust Layer Review) */}
+          <div className="p-6 rounded-2xl bg-[#08080c] border border-indigo-500/20 shadow-2xl space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-3">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-5 h-5 text-amber-400" />
+                <div>
+                  <h3 className="text-base font-bold text-white flex items-center gap-2">
+                    <span>🎯 Mapping Trust Layer</span>
+                  </h3>
+                  <div className="mt-1 space-y-0.5 text-xs text-gray-400 font-mono">
+                    <p>Canonical coverage: source=100% (4/4), target=100% (463/463), project=100% (467/467).</p>
+                    <p className="text-gray-500">Project concepts: 463 total, 9 shared across source and target.</p>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setCandidates(prev => prev.map(c => ({ ...c, status: 'pending' })))}
+                className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs text-gray-300 hover:text-white transition-colors self-start sm:self-auto cursor-pointer"
+              >
+                <RefreshCw className="w-3.5 h-3.5" />
+                <span>{language === 'sr' ? 'Resetuj statuse' : 'Reset Statuses'}</span>
+              </button>
+            </div>
+
+            {/* Candidates List - Matching Screenshot Design */}
+            <div className="space-y-4">
+              {candidates.map((cand) => {
+                // Compute combined score dynamically from live sliders
+                const totalW = lexicalWeight + canonicalWeight + semanticWeight;
+                const dynamicPct = Math.min(99, Math.round((cand.confidenceScore * (semanticWeight + canonicalWeight * 0.8 + lexicalWeight * 0.8) / (totalW || 1))));
+                const scoreDisplay = `${dynamicPct}%`;
+
+                return (
+                  <div
+                    key={cand.id}
+                    className="p-4 rounded-xl bg-black/60 border border-white/10 space-y-3 hover:border-indigo-500/30 transition-all shadow-lg"
+                  >
+                    {/* Top Row: Source Box -> Target Box + Confidence */}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-start">
+                      {/* Source Box */}
+                      <div className="md:col-span-4 p-3 rounded-lg bg-[#0f2139] border border-blue-500/30">
+                        <span className="text-xs font-mono font-bold text-blue-300">
+                          {cand.sourceField}
+                        </span>
+                      </div>
+
+                      {/* Target Box */}
+                      <div className="md:col-span-5 p-3 rounded-lg bg-[#0b291d] border border-emerald-500/30">
+                        <span className="text-xs font-mono font-bold text-emerald-300">
+                          Target: {cand.targetField}
+                        </span>
+                      </div>
+
+                      {/* Confidence Score & Bar */}
+                      <div className="md:col-span-3 flex flex-col justify-center items-end space-y-1">
+                        <span className="text-[10px] uppercase font-mono text-gray-400">Confidence</span>
+                        <span className="text-xl font-mono font-extrabold text-white">{scoreDisplay}</span>
+                        <div className="w-full bg-gray-800 h-1.5 rounded-full overflow-hidden">
+                          <div
+                            className="bg-blue-500 h-full rounded-full transition-all duration-300"
+                            style={{ width: scoreDisplay }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Metadata Items */}
+                    <div className="space-y-1 pl-1 text-xs font-mono text-gray-300 border-l-2 border-indigo-500/20 my-2">
+                      <p className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                        <span>Knowledge-backed match</span>
+                      </p>
+                      <p className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                        <span>Canonical-backed match</span>
+                      </p>
+                      <p className="text-gray-400 text-[11px] pt-0.5">
+                        <span className="text-gray-500">Canonical concept:</span> {cand.canonicalConcept}
+                      </p>
+                      <p className="text-gray-400 text-[11px]">
+                        <span className="text-gray-500">Transformation:</span> <span className="text-indigo-300">{cand.transformation}</span>
+                      </p>
+                    </div>
+
+                    {/* Collapsible Details Accordion Bar */}
+                    <details className="group border-t border-white/5 pt-2">
+                      <summary className="flex items-center gap-2 text-xs font-mono text-gray-400 hover:text-white cursor-pointer select-none">
+                        <ChevronRight className="w-3.5 h-3.5 group-open:rotate-90 transition-transform" />
+                        <span>⚙️ Details and Transformation for {cand.sourceField.replace('Source: ', '')}</span>
+                      </summary>
+                      <div className="mt-2 p-3 rounded-lg bg-black/40 text-xs text-gray-300 space-y-2 border border-white/5">
+                        <p className="text-gray-300 italic">
+                          &quot;{language === 'sr' ? cand.reviewNotesSr : cand.reviewNotesEn}&quot;
+                        </p>
+                        <div className="flex items-center gap-2 text-[10px] font-mono text-indigo-400">
+                          <span>Match Type:</span>
+                          <span className="px-1.5 py-0.5 rounded bg-indigo-500/10 border border-indigo-500/20">{cand.matchType}</span>
+                        </div>
+                      </div>
+                    </details>
+
+                    {/* Human Action Buttons */}
+                    <div className="flex items-center justify-between pt-1 border-t border-white/5 text-xs">
+                      <span className="text-[10px] font-mono text-gray-500">
+                        {language === 'sr' ? 'Ljudska verifikacija:' : 'Human verification:'}
+                      </span>
+
+                      <div className="flex items-center gap-2">
+                        {cand.status === 'approved' ? (
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono font-bold text-xs">
+                            <Check className="w-3.5 h-3.5" />
+                            <span>{language === 'sr' ? 'Verifikovano' : 'Approved'}</span>
+                          </span>
+                        ) : cand.status === 'rejected' ? (
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/40 font-mono font-bold text-xs">
+                            <X className="w-3.5 h-3.5" />
+                            <span>{language === 'sr' ? 'Odbijeno' : 'Rejected'}</span>
+                          </span>
+                        ) : (
+                          <>
+                            <button
+                              onClick={() => handleCandidateAction(cand.id, 'approved')}
+                              className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-mono font-bold transition-all cursor-pointer shadow-sm text-xs"
+                            >
+                              <Check className="w-3.5 h-3.5" />
+                              <span>{language === 'sr' ? 'Odobri' : 'Approve'}</span>
+                            </button>
+                            <button
+                              onClick={() => handleCandidateAction(cand.id, 'rejected')}
+                              className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-rose-600/30 hover:bg-rose-600/50 text-rose-200 border border-rose-500/30 font-mono font-bold transition-all cursor-pointer text-xs"
+                            >
+                              <X className="w-3.5 h-3.5" />
+                              <span>{language === 'sr' ? 'Odbij' : 'Reject'}</span>
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 2: INTERACTIVE VECTOR SEARCH ENGINE */}
+      {activeTab === 'search' && (
+        <>
       {/* Main Interactive Work Area */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 bg-[#080808]/50 p-5 rounded-2xl border border-white/5 shadow-lg relative overflow-hidden">
         
@@ -705,6 +1115,8 @@ export default function SemantraWidget({ language }: SemantraWidgetProps) {
             <span className="absolute bottom-1 right-2 text-[8px] font-mono text-gray-600">Cosine Similarity Vector Mapper Connected</span>
           </div>
         </div>
+      )}
+        </>
       )}
     </div>
   );
